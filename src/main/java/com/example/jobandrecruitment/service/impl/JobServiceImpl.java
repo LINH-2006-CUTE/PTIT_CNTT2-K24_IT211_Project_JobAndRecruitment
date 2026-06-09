@@ -1,0 +1,66 @@
+package com.example.jobandrecruitment.service.impl;
+
+import com.example.jobandrecruitment.exception.ResourceNotFoundException;
+import com.example.jobandrecruitment.model.dto.request.JobPostRequest;
+import com.example.jobandrecruitment.model.dto.response.JobResponse;
+import com.example.jobandrecruitment.model.entity.Job;
+import com.example.jobandrecruitment.model.entity.User;
+import com.example.jobandrecruitment.repository.JobRepository;
+import com.example.jobandrecruitment.repository.UserRepository;
+import com.example.jobandrecruitment.service.JobService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class JobServiceImpl implements JobService {
+
+    private final JobRepository jobRepository;
+    private final UserRepository userRepository;
+
+    public JobServiceImpl(JobRepository jobRepository, UserRepository userRepository) {
+        this.jobRepository = jobRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public JobResponse postJob(JobPostRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            throw new ResourceNotFoundException("Authenticated employer not found");
+        }
+        if (auth.getName() == null) {
+            throw new ResourceNotFoundException("Authenticated employer not found");
+        }
+        String email = auth.getName();
+        User employer = userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Employer not found"));
+
+        Job job = Job.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .location(request.getLocation())
+                .employer(employer)
+                .isActive(false) // default to not active until approved by admin
+                .build();
+
+        Job saved = jobRepository.save(job);
+
+        return new JobResponse(saved.getId(), saved.getTitle(), saved.getDescription(), saved.getLocation(), saved.isActive(), saved.getEmployer().getEmail(), saved.getCreatedAt());
+    }
+
+    @Override
+    public void approveJob(Long jobId) {
+        Job job = jobRepository.findById(jobId).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy bài đăng"));
+        job.setActive(true);
+        jobRepository.save(job);
+    }
+
+    @Override
+    public List<JobResponse> getAllJobs() {
+        return jobRepository.findAll().stream().map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt())).collect(Collectors.toList());
+    }
+}
+

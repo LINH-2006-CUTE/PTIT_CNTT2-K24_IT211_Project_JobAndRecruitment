@@ -25,7 +25,7 @@ public class User {
     private String email;
 
     @Column(nullable = false, length = 255)
-    private String password; // Chuỗi đã băm BCrypt
+    private String password;
 
     @Column(name = "full_name", nullable = false, length = 100)
     private String fullName;

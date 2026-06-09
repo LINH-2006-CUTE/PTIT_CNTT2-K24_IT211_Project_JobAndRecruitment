@@ -1,4 +1,61 @@
 package com.example.jobandrecruitment.model.entity;
 
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(
+        name = "job_applications",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"job_id", "candidate_id"})
+        } // Biện pháp chặn điểm mù: Không cho một ứng viên nộp 2 lần vào 1 bài đăng
+)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class JobApplication {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_id", nullable = false)
+    private Job job;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "candidate_id", nullable = false)
+    private User candidate; // Liên kết tới User có role CANDIDATE
+
+    @Column(name = "cover_letter", columnDefinition = "TEXT")
+    private String coverLetter;
+
+    @Column(name = "submitted_cv_url", nullable = false, length = 255)
+    private String submittedCvUrl; // Snapshot URL CV tại thời điểm nộp đơn nhằm tránh lỗi ứng viên đổi CV sau này
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private JobStatus status = JobStatus.PENDING; // Mặc định là PENDING khi nộp
+
+    @Column(name = "applied_at")
+    private LocalDateTime appliedAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.appliedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
