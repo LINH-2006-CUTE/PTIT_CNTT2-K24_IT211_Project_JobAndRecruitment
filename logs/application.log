@@ -1,0 +1,271 @@
+2026-06-09T12:27:26.668+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Starting JobAndRecruitmentApplication using Java 17.0.12 with PID 31628 (D:\RA_Java_WebServices\JobAndRecruitment\build\classes\java\main started by h in D:\RA_Java_WebServices\JobAndRecruitment)
+2026-06-09T12:27:26.674+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-09T12:27:26.735+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-09T12:27:26.736+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-09T12:27:27.517+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-09T12:27:27.539+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 JPA repository interfaces.
+2026-06-09T12:27:28.027+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-09T12:27:28.039+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-09T12:27:28.039+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-09T12:27:28.091+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1355 ms
+2026-06-09T12:27:28.258+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-09T12:27:28.326+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.12.Final
+2026-06-09T12:27:28.806+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-09T12:27:28.842+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-09T12:27:29.354+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7b472de8
+2026-06-09T12:27:29.358+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-09T12:27:29.445+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-09T12:27:29.468+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/job_prj?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.7
+	Default catalog/schema: job_prj/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-09T12:27:29.896+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-09T12:27:29.906+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:27:29.956+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-09T12:27:30.263+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 6713a069-bb7e-4187-8dca-efbfb4837ea6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-09T12:27:30.311+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-09T12:27:30.510+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-09T12:27:30.520+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Started JobAndRecruitmentApplication in 4.527 seconds (process running for 6.133)
+2026-06-09T12:28:42.541+07:00  INFO 31628 --- [JobAndRecruitment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-06-09T12:28:42.547+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-09T12:28:42.754+07:00  INFO 31628 --- [JobAndRecruitment] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-09T12:28:42.781+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:28:42.784+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-09T12:28:42.794+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-09T12:28:42.870+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Starting JobAndRecruitmentApplication using Java 17.0.12 with PID 31628 (D:\RA_Java_WebServices\JobAndRecruitment\build\classes\java\main started by h in D:\RA_Java_WebServices\JobAndRecruitment)
+2026-06-09T12:28:42.871+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-09T12:28:43.128+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-09T12:28:43.134+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2026-06-09T12:28:43.248+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-09T12:28:43.248+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-09T12:28:43.248+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-09T12:28:43.282+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 408 ms
+2026-06-09T12:28:43.323+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-09T12:28:43.398+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-09T12:28:43.402+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-06-09T12:28:43.421+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c48b9bb
+2026-06-09T12:28:43.421+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-06-09T12:28:43.421+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-09T12:28:43.421+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/job_prj?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.7
+	Default catalog/schema: job_prj/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-09T12:28:43.445+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-09T12:28:43.445+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:28:43.486+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-09T12:28:43.592+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: bc050510-695e-48dd-b29b-36936ded03d6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-09T12:28:43.602+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-09T12:28:43.687+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-09T12:28:43.687+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Started JobAndRecruitmentApplication in 0.841 seconds (process running for 79.308)
+2026-06-09T12:28:43.696+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-09T12:29:46.961+07:00  INFO 31628 --- [JobAndRecruitment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-06-09T12:29:46.962+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-5] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-09T12:29:47.114+07:00  INFO 31628 --- [JobAndRecruitment] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-09T12:29:47.117+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:29:47.118+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-06-09T12:29:47.125+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-06-09T12:29:47.184+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Starting JobAndRecruitmentApplication using Java 17.0.12 with PID 31628 (D:\RA_Java_WebServices\JobAndRecruitment\build\classes\java\main started by h in D:\RA_Java_WebServices\JobAndRecruitment)
+2026-06-09T12:29:47.184+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-09T12:29:47.275+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-09T12:29:47.277+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2026-06-09T12:29:47.329+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-09T12:29:47.330+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-09T12:29:47.330+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-09T12:29:47.343+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 157 ms
+2026-06-09T12:29:47.366+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-09T12:29:47.387+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-09T12:29:47.388+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-06-09T12:29:47.400+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ebf08a1
+2026-06-09T12:29:47.401+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-06-09T12:29:47.402+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-09T12:29:47.403+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/job_prj?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.7
+	Default catalog/schema: job_prj/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-09T12:29:47.416+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-09T12:29:47.417+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:29:47.434+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-09T12:29:47.473+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: edc7047c-ede7-407d-925e-9205a152e1a2
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-09T12:29:47.479+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-09T12:29:47.521+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-09T12:29:47.523+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Started JobAndRecruitmentApplication in 0.356 seconds (process running for 143.136)
+2026-06-09T12:29:47.524+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-09T12:30:00.056+07:00  INFO 31628 --- [JobAndRecruitment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (2 additions, 0 deletions, 0 modifications)
+2026-06-09T12:30:00.058+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-9] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-09T12:30:00.206+07:00  INFO 31628 --- [JobAndRecruitment] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-09T12:30:00.208+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:30:00.210+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-06-09T12:30:00.214+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-06-09T12:30:00.269+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Starting JobAndRecruitmentApplication using Java 17.0.12 with PID 31628 (D:\RA_Java_WebServices\JobAndRecruitment\build\classes\java\main started by h in D:\RA_Java_WebServices\JobAndRecruitment)
+2026-06-09T12:30:00.269+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-09T12:30:00.365+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-09T12:30:00.365+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2026-06-09T12:30:00.433+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-09T12:30:00.433+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-09T12:30:00.433+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-09T12:30:00.445+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 176 ms
+2026-06-09T12:30:00.471+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-09T12:30:00.490+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-09T12:30:00.490+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-06-09T12:30:00.505+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@283022b7
+2026-06-09T12:30:00.505+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-06-09T12:30:00.505+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-09T12:30:00.505+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/job_prj?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.7
+	Default catalog/schema: job_prj/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-09T12:30:00.520+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-09T12:30:00.520+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:30:00.549+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-09T12:30:00.598+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: ac92279b-1320-4939-9104-cb19906abbf2
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-09T12:30:00.606+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-09T12:30:00.655+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-09T12:30:00.658+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Started JobAndRecruitmentApplication in 0.406 seconds (process running for 156.273)
+2026-06-09T12:30:00.658+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-09T12:32:27.317+07:00  INFO 31628 --- [JobAndRecruitment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2026-06-09T12:32:27.317+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-13] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-09T12:32:27.705+07:00  INFO 31628 --- [JobAndRecruitment] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-09T12:32:27.709+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:32:27.709+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-06-09T12:32:27.713+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-06-09T12:32:27.800+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Starting JobAndRecruitmentApplication using Java 17.0.12 with PID 31628 (D:\RA_Java_WebServices\JobAndRecruitment\build\classes\java\main started by h in D:\RA_Java_WebServices\JobAndRecruitment)
+2026-06-09T12:32:27.800+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-09T12:32:28.029+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-09T12:32:28.039+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2026-06-09T12:32:28.145+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-09T12:32:28.145+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-09T12:32:28.145+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-09T12:32:28.174+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 371 ms
+2026-06-09T12:32:28.214+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-09T12:32:28.274+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-09T12:32:28.274+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-06-09T12:32:28.299+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3baa9f65
+2026-06-09T12:32:28.299+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-06-09T12:32:28.299+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-09T12:32:28.299+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/job_prj?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.7
+	Default catalog/schema: job_prj/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-09T12:32:29.283+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-09T12:32:29.487+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:32:29.527+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-09T12:32:29.634+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 81a654a7-42a9-4a91-a2ae-0ad1b86241b1
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-09T12:32:29.646+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-09T12:32:29.724+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-09T12:32:29.724+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Started JobAndRecruitmentApplication in 1.961 seconds (process running for 305.347)
+2026-06-09T12:32:29.735+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-09T12:32:31.054+07:00  INFO 31628 --- [JobAndRecruitment] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-06-09T12:32:31.056+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-17] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-09T12:32:31.209+07:00  INFO 31628 --- [JobAndRecruitment] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-09T12:32:31.214+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-17] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:32:31.214+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-06-09T12:32:31.217+07:00  INFO 31628 --- [JobAndRecruitment] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2026-06-09T12:32:31.276+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Starting JobAndRecruitmentApplication using Java 17.0.12 with PID 31628 (D:\RA_Java_WebServices\JobAndRecruitment\build\classes\java\main started by h in D:\RA_Java_WebServices\JobAndRecruitment)
+2026-06-09T12:32:31.276+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-09T12:32:31.451+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-09T12:32:31.451+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2026-06-09T12:32:31.536+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-09T12:32:31.536+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-09T12:32:31.536+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-09T12:32:31.566+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 274 ms
+2026-06-09T12:32:31.594+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-09T12:32:31.642+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-09T12:32:31.642+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-06-09T12:32:31.658+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6bf9afc
+2026-06-09T12:32:31.658+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-06-09T12:32:31.664+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-09T12:32:31.664+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/job_prj?createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.7
+	Default catalog/schema: job_prj/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-09T12:32:31.714+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-09T12:32:31.726+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:32:31.761+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-09T12:32:31.835+07:00  WARN 31628 --- [JobAndRecruitment] [restartedMain] .s.a.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 3c0f92f0-1ce4-477f-82e6-02950b7d689f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-09T12:32:31.865+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-09T12:32:31.945+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-06-09T12:32:31.945+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] c.e.j.JobAndRecruitmentApplication       : Started JobAndRecruitmentApplication in 0.683 seconds (process running for 307.563)
+2026-06-09T12:32:31.945+07:00  INFO 31628 --- [JobAndRecruitment] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-06-09T12:33:33.588+07:00  INFO 31628 --- [JobAndRecruitment] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-09T12:33:33.743+07:00  INFO 31628 --- [JobAndRecruitment] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-06-09T12:33:33.745+07:00  INFO 31628 --- [JobAndRecruitment] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-09T12:33:33.746+07:00  INFO 31628 --- [JobAndRecruitment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2026-06-09T12:33:33.752+07:00  INFO 31628 --- [JobAndRecruitment] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
