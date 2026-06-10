@@ -5,6 +5,8 @@ import com.example.jobandrecruitment.exception.ResourceNotFoundException;
 import com.example.jobandrecruitment.model.dto.response.ApiDataResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,6 +41,32 @@ public class APIAdvice {
 				.httpStatus(status)
 				.build();
 		return ResponseEntity.status(status).body(body);
+	}
+
+	// Handle BadCredentialsException (wrong password)
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<ApiDataResponse<Object>> handleBadCredentials(BadCredentialsException ex) {
+		ApiDataResponse<Object> body = ApiDataResponse.builder()
+				.success(false)
+				.message("Email hoặc mật khẩu không đúng")
+				.data(null)
+				.errors(null)
+				.httpStatus(HttpStatus.UNAUTHORIZED)
+				.build();
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
+	}
+
+	// Handle UsernameNotFoundException (email not found)
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<ApiDataResponse<Object>> handleUsernameNotFound(UsernameNotFoundException ex) {
+		ApiDataResponse<Object> body = ApiDataResponse.builder()
+				.success(false)
+				.message("Tài khoản không tồn tại")
+				.data(null)
+				.errors(null)
+				.httpStatus(HttpStatus.UNAUTHORIZED)
+				.build();
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

@@ -30,7 +30,7 @@ public class JobApplication {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id", nullable = false)
-    private User candidate; // Liên kết tới User có role CANDIDATE
+    private User candidate; //lk tới User có role CANDIDATE
 
     @Column(name = "cover_letter", columnDefinition = "TEXT")
     private String coverLetter;
@@ -40,7 +40,7 @@ public class JobApplication {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private JobStatus status = JobStatus.PENDING; // Mặc định là PENDING khi nộp
+    private JobStatus status = JobStatus.PENDING;
 
     @Column(name = "applied_at")
     private LocalDateTime appliedAt;

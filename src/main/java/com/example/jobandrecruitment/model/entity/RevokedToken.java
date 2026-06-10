@@ -14,9 +14,9 @@ import java.time.Instant;
 public class RevokedToken {
 
     @Id
-    @Column(length = 500) // Độ dài chuỗi JWT Token thường khá lớn
+    @Column(length = 100, nullable = false, unique = true)
     private String id;
 
     @Column(name = "expiry_instant", nullable = false)
-    private Instant expiryInstant; // Thời gian hết hạn gốc của Token để chạy Cron Job dọn dẹp dữ liệu rác
+    private Instant expiryInstant;
 }
