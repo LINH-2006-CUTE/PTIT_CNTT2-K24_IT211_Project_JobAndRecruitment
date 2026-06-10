@@ -33,9 +33,6 @@ public class Job {
     @JoinColumn(name = "employer_id", nullable = false)
     private User employer;
 
-    // Mối quan hệ một-nhiều để xóa/cascade các đơn ứng tuyển nếu bài đăng bị xóa (nếu cần)
-//    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<JobApplication> applications;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

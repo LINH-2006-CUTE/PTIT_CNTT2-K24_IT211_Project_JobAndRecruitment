@@ -8,10 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(
-        name = "job_applications",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"job_id", "candidate_id"})
-        } // Biện pháp chặn điểm mù: Không cho một ứng viên nộp 2 lần vào 1 bài đăng
+        name = "job_applications"
 )
 @Getter
 @Setter
@@ -30,13 +27,13 @@ public class JobApplication {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id", nullable = false)
-    private User candidate; //lk tới User có role CANDIDATE
+    private User candidate; // tới User có role CANDIDATE
 
     @Column(name = "cover_letter", columnDefinition = "TEXT")
     private String coverLetter;
 
     @Column(name = "submitted_cv_url", nullable = false, length = 255)
-    private String submittedCvUrl; // Snapshot URL CV tại thời điểm nộp đơn nhằm tránh lỗi ứng viên đổi CV sau này
+    private String submittedCvUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

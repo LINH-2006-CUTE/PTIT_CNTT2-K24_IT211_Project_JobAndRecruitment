@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,10 +36,7 @@ public class User {
     private RoleUser role; // ADMIN, EMPLOYER, CANDIDATE
 
     @Column(name = "company_name", length = 150)
-    private String companyName; // Chỉ có giá trị nếu Role = EMPLOYER
-
-//    @Column(name = "cv_url", length = 255)
-//    private String cvUrl; // Đường dẫn file PDF trên Cloudinary/S3 nếu Role = CANDIDATE
+    private String companyName; // cho employee
 
     @Column(name = "is_active")
     private boolean isActive = true;
