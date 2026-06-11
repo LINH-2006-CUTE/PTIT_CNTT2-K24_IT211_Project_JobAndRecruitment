@@ -43,7 +43,6 @@ public class APIAdvice {
 		return ResponseEntity.status(status).body(body);
 	}
 
-	// Handle BadCredentialsException (wrong password)
 	@ExceptionHandler(BadCredentialsException.class)
 	public ResponseEntity<ApiDataResponse<Object>> handleBadCredentials(BadCredentialsException ex) {
 		ApiDataResponse<Object> body = ApiDataResponse.builder()

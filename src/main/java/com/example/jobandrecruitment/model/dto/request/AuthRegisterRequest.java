@@ -14,7 +14,7 @@ public class AuthRegisterRequest {
     private String email;
     private String password;
     private String fullName;
-    private RoleUser role; // RoleUser.EMPLOYER, ADMIN, CANDIDATE
-    private String companyName; // Chỉ bắt buộc nếu role = EMPLOYER
+    private RoleUser role; // EMPLOYER, ADMIN, CANDIDATE
+    private String companyName; // dành cho employer
 }
 

@@ -32,8 +32,8 @@ public class JobApplication {
     @Column(name = "cover_letter", columnDefinition = "TEXT")
     private String coverLetter;
 
-    @Column(name = "submitted_cv_url", nullable = false, length = 255)
-    private String submittedCvUrl;
+//    @Column(name = "submitted_cv_url", nullable = false, length = 255)
+//    private String submittedCvUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

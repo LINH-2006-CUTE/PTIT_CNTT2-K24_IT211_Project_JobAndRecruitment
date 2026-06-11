@@ -73,7 +73,13 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**", "/users/**", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/jobs/**").hasRole("EMPLOYER")
+                        // Employer: POST /api/v1/jobs/ (đăng tin)
+                        .requestMatchers("POST", "/api/v1/jobs/").hasRole("EMPLOYER")
+                        // Candidate: POST /api/v1/jobs/{jobId}/apply (nộp hồ sơ)
+                        .requestMatchers("POST", "/api/v1/jobs/*/apply").hasRole("CANDIDATE")
+                        // Employer: GET/PUT /api/v1/employer/** (xem hồ sơ, cập nhật trạng thái)
+                        .requestMatchers("/api/v1/employer/**").hasRole("EMPLOYER")
+                        // Admin: GET/PUT /api/v1/admin/** (quản lý người dùng, duyệt tin)
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );

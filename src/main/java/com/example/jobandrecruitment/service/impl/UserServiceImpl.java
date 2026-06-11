@@ -30,14 +30,11 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new AppException("Email đã tồn tại");
         }
-
         User user = User.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())) // Encode password using bcrypt
                 .fullName(request.getFullName()).role(request.getRole()).companyName(request.getCompanyName()).isActive(true).build();
-
         userRepository.save(user);
     }
 
-    //
     @Override
     public List<UserResponse> listUsers(int page, int size, String keyword) {
         Pageable pageable = PageRequest.of(page, size);

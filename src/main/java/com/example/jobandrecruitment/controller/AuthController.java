@@ -42,10 +42,6 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    /**
-     * Endpoint đăng nhập (Login)
-     * POST /api/v1/auth/login
-     */
     @PostMapping("/login")
     public ResponseEntity<ApiDataResponse<AuthResponse>> login(@RequestBody AuthRequest request) {
         Authentication authentication = authenticationManager.authenticate(

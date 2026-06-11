@@ -43,7 +43,7 @@ public class JobServiceImpl implements JobService {
                 .description(request.getDescription())
                 .location(request.getLocation())
                 .employer(employer)
-                .isActive(false) // default to not active until approved by admin
+                .isActive(false)
                 .build();
 
         Job saved = jobRepository.save(job);
