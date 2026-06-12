@@ -36,6 +36,25 @@ public class JobController {
         return ResponseEntity.status(201).body(body);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<ApiDataResponse<java.util.List<JobResponse>>> searchJobs(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String skill,
+            @RequestParam(required = false) String location,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        java.util.List<JobResponse> results = jobService.searchJobs(title, skill, location, page, size);
+        ApiDataResponse<java.util.List<JobResponse>> body = ApiDataResponse.<java.util.List<JobResponse>>builder()
+                .success(true)
+                .message("Search results")
+                .data(results)
+                .errors(null)
+                .httpStatus(org.springframework.http.HttpStatus.OK)
+                .build();
+        return ResponseEntity.ok(body);
+    }
+
     @PostMapping("/{jobId}/apply")
     public ResponseEntity<ApiDataResponse<JobApplicationResponse>> applyJob(
             @PathVariable Long jobId,

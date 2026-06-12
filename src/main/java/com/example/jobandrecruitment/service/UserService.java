@@ -16,6 +16,10 @@ public interface UserService {
 
     void changePassword(ChangePasswordRequest request);
 
+    void updateUser(Long id, com.example.jobandrecruitment.model.dto.request.UserRequest request);
+
+    void deleteUser(Long id);
+
     PasswordResetResponse forgotPassword(ForgotPasswordRequest request);
 
     void resetPassword(ResetPasswordRequest request);

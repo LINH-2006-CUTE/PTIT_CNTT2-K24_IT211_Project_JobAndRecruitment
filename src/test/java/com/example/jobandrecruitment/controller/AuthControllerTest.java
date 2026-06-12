@@ -1,7 +1,4 @@
 package com.example.jobandrecruitment.controller;
-
-import com.example.jobandrecruitment.exception.AppException;
-import com.example.jobandrecruitment.exception.ResourceNotFoundException;
 import com.example.jobandrecruitment.model.dto.request.ChangePasswordRequest;
 import com.example.jobandrecruitment.model.dto.request.ForgotPasswordRequest;
 import com.example.jobandrecruitment.model.dto.request.ResetPasswordRequest;
@@ -92,5 +89,37 @@ class AuthControllerTest {
 
         verify(userService, times(1)).resetPassword(any(ResetPasswordRequest.class));
     }
+
+    @Test
+    void should_ReturnHttpStatus201Created_When_RegisterSuccess() throws Exception {
+        com.example.jobandrecruitment.model.dto.request.AuthRegisterRequest req = new com.example.jobandrecruitment.model.dto.request.AuthRegisterRequest("new@example.com", "P@ssw0rd", "New User", com.example.jobandrecruitment.model.entity.RoleUser.CANDIDATE, null);
+        String json = objectMapper.writeValueAsString(req);
+        doNothing().when(userService).registerUser(any());
+
+        mockMvc.perform(post("/api/v1/auth/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", is("Đăng ký tài khoản thành công")));
+
+        verify(userService, times(1)).registerUser(any());
+    }
+
+    @Test
+    void should_ReturnBadRequest_When_ChangePasswordThrowsAppException() throws Exception {
+        com.example.jobandrecruitment.model.dto.request.ChangePasswordRequest request = new com.example.jobandrecruitment.model.dto.request.ChangePasswordRequest("old", "new", "new");
+        String jsonRequest = objectMapper.writeValueAsString(request);
+
+        doThrow(new com.example.jobandrecruitment.exception.AppException("Mật khẩu cũ không đúng")).when(userService).changePassword(any());
+
+        mockMvc.perform(post("/api/v1/auth/change-password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequest))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success", is(false)))
+                .andExpect(jsonPath("$.message", is("Mật khẩu cũ không đúng")));
+    }
+
 }
 

@@ -125,5 +125,32 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).save(testUser);
     }
 
+    @Test
+    @DisplayName("TEST 4: should_ThrowAppException_When_OldPasswordIncorrect")
+    void should_ThrowAppException_When_OldPasswordIncorrect() {
+        ChangePasswordRequest request = new ChangePasswordRequest("wrongOld", "newPass", "newPass");
+
+        try (MockedStatic<SecurityContextHolder> mocked = mockStatic(SecurityContextHolder.class)) {
+            mocked.when(SecurityContextHolder::getContext).thenReturn(securityContext);
+            when(securityContext.getAuthentication()).thenReturn(authentication);
+            when(authentication.getName()).thenReturn("test@example.com");
+
+            when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(testUser));
+            when(passwordEncoder.matches("wrongOld", "hashedPassword123")).thenReturn(false);
+
+            org.junit.jupiter.api.Assertions.assertThrows(com.example.jobandrecruitment.exception.AppException.class, () -> userService.changePassword(request));
+            verify(userRepository, never()).save(any());
+        }
+    }
+
+    @Test
+    @DisplayName("TEST 5: should_ThrowResourceNotFound_When_ForgotPasswordEmailNotFound")
+    void should_ThrowResourceNotFound_When_ForgotPasswordEmailNotFound() {
+        ForgotPasswordRequest request = new ForgotPasswordRequest("noexist@example.com");
+        when(userRepository.findByEmail("noexist@example.com")).thenReturn(Optional.empty());
+
+        org.junit.jupiter.api.Assertions.assertThrows(com.example.jobandrecruitment.exception.ResourceNotFoundException.class, () -> userService.forgotPassword(request));
+    }
+
 }
 

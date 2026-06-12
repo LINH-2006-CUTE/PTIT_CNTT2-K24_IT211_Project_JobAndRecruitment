@@ -132,6 +132,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(Long id, com.example.jobandrecruitment.model.dto.request.UserRequest request) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Người dùng không tồn tại"));
+        if (request.getEmail() != null) user.setEmail(request.getEmail());
+        if (request.getFullName() != null) user.setFullName(request.getFullName());
+        if (request.getRole() != null) user.setRole(request.getRole());
+        if (request.getCompanyName() != null) user.setCompanyName(request.getCompanyName());
+        if (request.getIsActive() != null) user.setActive(request.getIsActive());
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Người dùng không tồn tại"));
+        // Soft delete: set isActive = false
+        user.setActive(false);
+        userRepository.save(user);
+    }
+
+    @Override
     public List<UserResponse> listUsers(int page, int size, String keyword) {
         Pageable pageable = PageRequest.of(page, size);
         var userPage = userRepository.findByFullNameContainingIgnoreCase(keyword == null ? "" : keyword, pageable);

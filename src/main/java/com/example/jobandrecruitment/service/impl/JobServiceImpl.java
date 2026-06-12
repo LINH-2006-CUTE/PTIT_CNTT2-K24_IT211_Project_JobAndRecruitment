@@ -62,5 +62,38 @@ public class JobServiceImpl implements JobService {
     public List<JobResponse> getAllJobs() {
         return jobRepository.findAll().stream().map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt())).collect(Collectors.toList());
     }
+
+    @Override
+    public java.util.List<JobResponse> getJobs(int page, int size, Boolean isActive) {
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
+        org.springframework.data.domain.Page<Job> pageResult;
+        if (isActive == null) {
+            pageResult = jobRepository.findAll(pageable);
+        } else {
+            pageResult = jobRepository.findByIsActive(isActive, pageable);
+        }
+        return pageResult.getContent().stream().map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteJob(Long id) {
+        Job job = jobRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy bài đăng"));
+        job.setActive(false);
+        jobRepository.save(job);
+    }
+
+    @Override
+    public java.util.List<JobResponse> searchJobs(String title, String skill, String location, int page, int size) {
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
+        // Simple dynamic search: title, location, skill (search inside description)
+        java.util.List<Job> jobs = jobRepository.findAll(pageable).getContent();
+        return jobs.stream()
+                .filter(Job::isActive)
+                .filter(j -> title == null || j.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .filter(j -> location == null || j.getLocation().toLowerCase().contains(location.toLowerCase()))
+                .filter(j -> skill == null || j.getDescription().toLowerCase().contains(skill.toLowerCase()))
+                .map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt()))
+                .collect(Collectors.toList());
+    }
 }
 

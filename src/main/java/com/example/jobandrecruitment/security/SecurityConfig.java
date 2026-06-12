@@ -5,6 +5,7 @@ import com.example.jobandrecruitment.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,11 +19,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.http.HttpMethod;
+import com.example.jobandrecruitment.repository.RevokedTokenRepository;
 
 import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -57,8 +60,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
-        return new JwtAuthenticationFilter(jwtService, userDetailsService);
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService, RevokedTokenRepository revokedTokenRepository) {
+        return new JwtAuthenticationFilter(jwtService, userDetailsService, revokedTokenRepository);
     }
 
     @Bean
@@ -67,6 +70,8 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**", "/users/**", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        // Allow public access to job listings for candidates
+                        .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
                         // Employer: Đăng job (POST /api/v1/jobs/)
                         .requestMatchers(HttpMethod.POST, "/api/v1/jobs/").hasRole("EMPLOYER")
                         // Candidate: Nộp hồ sơ (POST /api/v1/jobs/{jobId}/apply)

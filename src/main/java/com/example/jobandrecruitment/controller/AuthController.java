@@ -27,12 +27,14 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final com.example.jobandrecruitment.repository.RevokedTokenRepository revokedTokenRepository;
 
-    public AuthController(UserService userService, AuthenticationManager authenticationManager, JwtService jwtService, UserDetailsService userDetailsService) {
+    public AuthController(UserService userService, AuthenticationManager authenticationManager, JwtService jwtService, UserDetailsService userDetailsService, com.example.jobandrecruitment.repository.RevokedTokenRepository revokedTokenRepository) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
+        this.revokedTokenRepository = revokedTokenRepository;
     }
 
     //    đăng ký tài khoản (EMPLOYER, CANDIDATE)
@@ -137,5 +139,41 @@ public class AuthController {
         response.setData(null);
         response.setHttpStatus(HttpStatus.OK);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiDataResponse<String>> logout(@RequestHeader(value = "Authorization", required = false) String authorization) {
+        ApiDataResponse<String> response = new ApiDataResponse<>();
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
+            response.setSuccess(false);
+            response.setMessage("Authorization header missing or invalid");
+            response.setData(null);
+            response.setHttpStatus(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        String token = authorization.substring(7);
+        try {
+            java.util.Date exp = jwtService.extractClaim(token, io.jsonwebtoken.Claims::getExpiration);
+            java.time.Instant expiryInstant = exp.toInstant();
+
+            com.example.jobandrecruitment.model.entity.RevokedToken revoked = com.example.jobandrecruitment.model.entity.RevokedToken.builder()
+                    .id(token)
+                    .expiryInstant(expiryInstant)
+                    .build();
+            revokedTokenRepository.save(revoked);
+
+            response.setSuccess(true);
+            response.setMessage("Đăng xuất thành công");
+            response.setData(null);
+            response.setHttpStatus(HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception ex) {
+            response.setSuccess(false);
+            response.setMessage("Token không hợp lệ");
+            response.setData(null);
+            response.setHttpStatus(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
     }
 }
