@@ -85,14 +85,19 @@ public class JobServiceImpl implements JobService {
     @Override
     public java.util.List<JobResponse> searchJobs(String title, String skill, String location, int page, int size) {
         org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
-        // Simple dynamic search: title, location, skill (search inside description)
-        java.util.List<Job> jobs = jobRepository.findAll(pageable).getContent();
-        return jobs.stream()
-                .filter(Job::isActive)
-                .filter(j -> title == null || j.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .filter(j -> location == null || j.getLocation().toLowerCase().contains(location.toLowerCase()))
-                .filter(j -> skill == null || j.getDescription().toLowerCase().contains(skill.toLowerCase()))
-                .map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt()))
+
+        // Gọi câu Query từ Repository để DB tự lọc và phân trang chuẩn
+        org.springframework.data.domain.Page<Job> pageResult = jobRepository.searchActiveJobs(title, location, skill, pageable);
+
+        return pageResult.getContent().stream()
+                .map(j -> new JobResponse(
+                        j.getId(),
+                        j.getTitle(),
+                        j.getDescription(),
+                        j.getLocation(),
+                        j.isActive(),
+                        j.getEmployer() != null ? j.getEmployer().getEmail() : null,
+                        j.getCreatedAt()))
                 .collect(Collectors.toList());
     }
 }

@@ -12,4 +12,3 @@ public class PasswordResetResponse {
     private int expirationMinutes;
     private String message;
 }
-
