@@ -1,4 +1,4 @@
-package com.example.jobandrecruitment.model.dto.response;
+package com.example.jobandrecruitment.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthResponse {
-    private String token;
+public class RefreshTokenRequest {
     private String refreshToken;
 }
 

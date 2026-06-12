@@ -17,15 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.http.HttpMethod;
 
 import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-//
-//    @Autowired
-//    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
     private UserRepository userRepository;
@@ -58,10 +56,6 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // remove field injection
-// @Autowired
-// private JwtAuthenticationFilter jwtAuthenticationFilter;
-
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
         return new JwtAuthenticationFilter(jwtService, userDetailsService);
@@ -73,19 +67,19 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**", "/users/**", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        // Employer: POST /api/v1/jobs/ (đăng tin)
-                        .requestMatchers("POST", "/api/v1/jobs/").hasRole("EMPLOYER")
-                        // Candidate: POST /api/v1/jobs/{jobId}/apply (nộp hồ sơ)
-                        .requestMatchers("POST", "/api/v1/jobs/*/apply").hasRole("CANDIDATE")
-                        // Employer: GET/PUT /api/v1/employer/** (xem hồ sơ, cập nhật trạng thái)
+                        // Employer: Đăng job (POST /api/v1/jobs/)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/jobs/").hasRole("EMPLOYER")
+                        // Candidate: Nộp hồ sơ (POST /api/v1/jobs/{jobId}/apply)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/jobs/*/apply").hasRole("CANDIDATE")
+                        // Employer: Xem và cập nhật hồ sơ
                         .requestMatchers("/api/v1/employer/**").hasRole("EMPLOYER")
-                        // Admin: GET/PUT /api/v1/admin/** (quản lý người dùng, duyệt tin)
+                        // Admin
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
-
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }
+
+

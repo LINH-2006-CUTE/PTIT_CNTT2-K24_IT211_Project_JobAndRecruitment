@@ -26,13 +26,15 @@ public class Job {
     @Column(nullable = false, length = 100)
     private String location;
 
-    @Column(name = "is_active")
-    private boolean isActive = true;
+//    @Column(name = "is_active")
+//    private boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employer_id", nullable = false)
     private User employer;
 
+    @Column(name = "is_active")
+    private boolean isActive = false;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

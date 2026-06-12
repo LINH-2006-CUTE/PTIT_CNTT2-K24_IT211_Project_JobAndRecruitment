@@ -7,6 +7,7 @@ import com.example.jobandrecruitment.model.dto.request.UpdateApplicationStatusRe
 import com.example.jobandrecruitment.model.dto.response.JobApplicationResponse;
 import com.example.jobandrecruitment.model.entity.Job;
 import com.example.jobandrecruitment.model.entity.JobApplication;
+import com.example.jobandrecruitment.model.entity.JobStatus;
 import com.example.jobandrecruitment.model.entity.User;
 import com.example.jobandrecruitment.repository.JobApplicationRepository;
 import com.example.jobandrecruitment.repository.JobRepository;
@@ -27,8 +28,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     private final UserRepository userRepository;
 
     public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository,
-                                   JobRepository jobRepository,
-                                   UserRepository userRepository) {
+                                     JobRepository jobRepository,
+                                     UserRepository userRepository) {
         this.jobApplicationRepository = jobApplicationRepository;
         this.jobRepository = jobRepository;
         this.userRepository = userRepository;
@@ -36,7 +37,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     public JobApplicationResponse applyJob(Long jobId, JobApplicationRequest request) {
-        // Get authenticated candidate
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth.getName() == null) {
             throw new ResourceNotFoundException("Authenticated candidate not found");
@@ -46,21 +46,24 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         User candidate = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate not found"));
 
-        // Check if job exists
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
 
-        // Check if candidate already applied
+        // ✅ THÊM KIỂM TRA: JOB PHẢI ĐƯỢC DUYỆT
+        if (!job.isActive()) {
+            throw new AppException("Vị trí tuyển dụng này chưa được duyệt");
+        }
+
         var existingApp = jobApplicationRepository.findByJobIdAndCandidateId(jobId, candidate.getId());
         if (existingApp.isPresent()) {
             throw new AppException("Bạn đã nộp hồ sơ cho vị trí này rồi");
         }
 
-        // Create application
         JobApplication application = JobApplication.builder()
                 .job(job)
                 .candidate(candidate)
                 .coverLetter(request.getCoverLetter())
+                .status(JobStatus.PENDING)
                 .build();
 
         JobApplication saved = jobApplicationRepository.save(application);
@@ -72,7 +75,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         JobApplication application = jobApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Application not found"));
 
-        // Verify that authenticated user is the employer of this job
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth.getName() == null) {
             throw new ResourceNotFoundException("Authenticated user not found");
@@ -86,7 +88,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
             throw new AppException("Bạn không có quyền cập nhật trạng thái hồ sơ này");
         }
 
-        // Update status
+        if (!application.getJob().isActive()) {
+            throw new AppException("Job này chưa được duyệt, không thể phản hồi hồ sơ");
+        }
+
         application.setStatus(request.getStatus());
         JobApplication updated = jobApplicationRepository.save(application);
 
@@ -95,7 +100,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     public List<JobApplicationResponse> getJobApplications(Long jobId) {
-        // Get authenticated employer
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth.getName() == null) {
             throw new ResourceNotFoundException("Authenticated user not found");
@@ -105,7 +109,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         User employer = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        // Check if job exists and belongs to employer
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
 
@@ -132,7 +135,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         return mapToResponse(application);
     }
 
-    // Helper method to map entity to DTO
     private JobApplicationResponse mapToResponse(JobApplication app) {
         return new JobApplicationResponse(
                 app.getId(),
@@ -148,4 +150,3 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         );
     }
 }
-
