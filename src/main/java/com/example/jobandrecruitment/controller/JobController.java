@@ -36,10 +36,6 @@ public class JobController {
         return ResponseEntity.status(201).body(body);
     }
 
-    /**
-     * Candidate: Apply for a job
-     * POST /api/v1/jobs/{jobId}/apply
-     */
     @PostMapping("/{jobId}/apply")
     public ResponseEntity<ApiDataResponse<JobApplicationResponse>> applyJob(
             @PathVariable Long jobId,
