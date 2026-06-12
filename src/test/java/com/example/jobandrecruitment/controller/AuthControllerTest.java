@@ -82,7 +82,6 @@ class AuthControllerTest {
 
         String jsonRequest = objectMapper.writeValueAsString(request);
 
-        // Act & Assert
         mockMvc.perform(post("/api/v1/auth/reset-password")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest))
