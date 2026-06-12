@@ -2,7 +2,10 @@ package com.example.jobandrecruitment.controller;
 
 import com.example.jobandrecruitment.model.dto.request.AuthRequest;
 import com.example.jobandrecruitment.model.dto.request.AuthRegisterRequest;
+import com.example.jobandrecruitment.model.dto.request.ChangePasswordRequest;
+import com.example.jobandrecruitment.model.dto.request.ForgotPasswordRequest;
 import com.example.jobandrecruitment.model.dto.request.RefreshTokenRequest;
+import com.example.jobandrecruitment.model.dto.request.ResetPasswordRequest;
 import com.example.jobandrecruitment.model.dto.response.ApiDataResponse;
 import com.example.jobandrecruitment.model.dto.response.AuthResponse;
 import com.example.jobandrecruitment.security.JwtService;
@@ -98,5 +101,41 @@ public class AuthController {
             response.setHttpStatus(HttpStatus.UNAUTHORIZED);
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<ApiDataResponse<String>> changePassword(@RequestBody ChangePasswordRequest request) {
+        userService.changePassword(request);
+
+        ApiDataResponse<String> response = new ApiDataResponse<>();
+        response.setSuccess(true);
+        response.setMessage("Đổi mật khẩu thành công");
+        response.setData(null);
+        response.setHttpStatus(HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiDataResponse<String>> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+        userService.forgotPassword(request);
+
+        ApiDataResponse<String> response = new ApiDataResponse<>();
+        response.setSuccess(true);
+        response.setMessage("Đã gửi email chứa mã xác thực");
+        response.setData(null);
+        response.setHttpStatus(HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiDataResponse<String>> resetPassword(@RequestBody ResetPasswordRequest request) {
+        userService.resetPassword(request);
+
+        ApiDataResponse<String> response = new ApiDataResponse<>();
+        response.setSuccess(true);
+        response.setMessage("Đổi mật khẩu thành công");
+        response.setData(null);
+        response.setHttpStatus(HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
