@@ -44,7 +44,8 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @PrePersist
+    @Column(name = "cv_url", length = 500)
+    private String cvUrl;
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }

@@ -21,10 +21,7 @@ public class EmployerController {
         this.jobApplicationService = jobApplicationService;
     }
 
-    /**
-     * Employer: Get all applications for a job
-     * GET /api/v1/employer/jobs/{jobId}/applications
-     */
+    //
     @GetMapping("/jobs/{jobId}/applications")
     public ResponseEntity<ApiDataResponse<List<JobApplicationResponse>>> getJobApplications(
             @PathVariable Long jobId) {
@@ -40,10 +37,7 @@ public class EmployerController {
         return ResponseEntity.ok(body);
     }
 
-    /**
-     * Employer: Update application status (PENDING, REVIEWING, INTERVIEWING, ACCEPTED, REJECTED)
-     * PUT /api/v1/employer/applications/{applicationId}/status
-     */
+    // lấy thông tin cụ thể của một ứng dụng, bao gồm cả thông tin ứng viên và trạng thái hiện tại của ứng dụng
     @PutMapping("/applications/{applicationId}/status")
     public ResponseEntity<ApiDataResponse<JobApplicationResponse>> updateApplicationStatus(
             @PathVariable Long applicationId,
@@ -61,10 +55,7 @@ public class EmployerController {
         return ResponseEntity.ok(body);
     }
 
-    /**
-     * Employer: Get application details
-     * GET /api/v1/employer/applications/{applicationId}
-     */
+    // lấy thông tin chi tiết của một ứng dụng cụ thể, bao gồm cả thông tin ứng viên và trạng thái hiện tại của ứng dụng
     @GetMapping("/applications/{applicationId}")
     public ResponseEntity<ApiDataResponse<JobApplicationResponse>> getApplication(
             @PathVariable Long applicationId) {

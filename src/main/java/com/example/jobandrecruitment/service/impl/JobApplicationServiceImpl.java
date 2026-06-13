@@ -49,7 +49,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
 
-        // ✅ THÊM KIỂM TRA: JOB PHẢI ĐƯỢC DUYỆT
         if (!job.isActive()) {
             throw new AppException("Vị trí tuyển dụng này chưa được duyệt");
         }
@@ -59,10 +58,12 @@ public class JobApplicationServiceImpl implements JobApplicationService {
             throw new AppException("Bạn đã nộp hồ sơ cho vị trí này rồi");
         }
 
+        // Bổ sung gán request.getSubmittedCvUrl() vào Builder
         JobApplication application = JobApplication.builder()
                 .job(job)
                 .candidate(candidate)
                 .coverLetter(request.getCoverLetter())
+                .submittedCvUrl(request.getSubmittedCvUrl()) // THÊM DÒNG NÀY
                 .status(JobStatus.PENDING)
                 .build();
 
@@ -146,7 +147,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                 app.getCoverLetter(),
                 app.getStatus(),
                 app.getAppliedAt(),
-                app.getUpdatedAt()
+                app.getUpdatedAt(),
+                app.getSubmittedCvUrl()
         );
     }
 }

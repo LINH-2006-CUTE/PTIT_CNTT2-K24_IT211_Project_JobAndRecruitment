@@ -14,5 +14,7 @@ public class JobApplicationRequest {
 
     @NotBlank(message = "Cover letter is required")
     private String coverLetter;
-}
 
+    @NotBlank(message = "Mã liên kết hoặc đường dẫn file CV không được để trống")
+    private String submittedCvUrl;
+}

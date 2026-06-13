@@ -1,15 +1,12 @@
 package com.example.jobandrecruitment.model.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "job_applications"
-)
+@Table(name = "job_applications")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,13 +24,13 @@ public class JobApplication {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id", nullable = false)
-    private User candidate; // tới User có role CANDIDATE
+    private User candidate;
 
     @Column(name = "cover_letter", columnDefinition = "TEXT")
     private String coverLetter;
 
-//    @Column(name = "submitted_cv_url", nullable = false, length = 255)
-//    private String submittedCvUrl;
+    @Column(name = "submitted_cv_url", nullable = false, length = 255)
+    private String submittedCvUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

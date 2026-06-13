@@ -26,8 +26,14 @@ public class Job {
     @Column(nullable = false, length = 100)
     private String location;
 
-//    @Column(name = "is_active")
-//    private boolean isActive = true;
+    @Column(name = "salary", length = 100)
+    private String salary;  // VD: "20-30 triệu/tháng"
+
+    @Column(name = "required_skills", columnDefinition = "TEXT")
+    private String requiredSkills;  // VD: "Java, Spring Boot, MySQL"
+
+    @Column(name = "deadline")
+    private LocalDateTime deadline;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employer_id", nullable = false)

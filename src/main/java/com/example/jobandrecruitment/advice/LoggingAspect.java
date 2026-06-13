@@ -1,6 +1,9 @@
 package com.example.jobandrecruitment.advice;
 
+import com.example.jobandrecruitment.model.dto.response.JobApplicationResponse;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -38,12 +41,24 @@ public class LoggingAspect {
 
         return result;
     }
-
-    // Bắt riêng các Exception quăng ra từ Controller hoặc Service để giám sát hệ thống
-    @AfterThrowing(pointcut = "execution(* com.example.jobandrecruitment..*(..))", throwing = "exception")
-    public void logAfterThrowing(Object exception) {
-        if (exception instanceof Exception) {
-            logger.warn("⚠️ [AOP EXCEPTION SYSTEM]: Captured error detail -> {}", ((Exception) exception).getMessage());
-        }
+    @AfterReturning(
+            pointcut = "execution(* com.example.jobandrecruitment.service.impl.JobApplicationServiceImpl.applyJob(..))",
+            returning = "result"
+    )
+    public void logJobApplicationSuccess(JoinPoint joinPoint, JobApplicationResponse result) {
+        logger.info("[AOP AFTER_RETURNING] Candidate ID: {} applied for Job ID: {}",
+                result.getCandidateId(), result.getJobId());
+    }
+    @AfterThrowing(
+            pointcut =
+                    "execution(* com.example.jobandrecruitment.service.impl..*(..))",
+            throwing = "exception"
+    )
+    public void logAfterThrowing(Exception exception)
+    {
+        logger.warn(
+                "Captured error -> {}",
+                exception.getMessage()
+        );
     }
 }

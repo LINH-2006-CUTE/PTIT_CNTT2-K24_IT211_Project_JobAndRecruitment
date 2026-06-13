@@ -23,5 +23,6 @@ public class JobApplicationResponse {
     private JobStatus status;
     private LocalDateTime appliedAt;
     private LocalDateTime updatedAt;
+    private String submittedCvUrl;
 }
 

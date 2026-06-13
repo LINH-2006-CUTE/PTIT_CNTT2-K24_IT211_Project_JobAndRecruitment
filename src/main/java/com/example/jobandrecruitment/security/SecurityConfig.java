@@ -39,17 +39,8 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            User user = userRepository.findByEmail(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-            return org.springframework.security.core.userdetails.User.builder()
-                    .username(user.getEmail())
-                    .password(user.getPassword())
-                    .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())))
-                    .accountExpired(false)
-                    .accountLocked(false)
-                    .credentialsExpired(false)
-                    .disabled(!user.isActive())
-                    .build();
+            User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+            return org.springframework.security.core.userdetails.User.builder().username(user.getEmail()).password(user.getPassword()).authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))).accountExpired(false).accountLocked(false).credentialsExpired(false).disabled(!user.isActive()).build();
         };
     }
 
@@ -60,28 +51,35 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService, RevokedTokenRepository revokedTokenRepository) {
-        return new JwtAuthenticationFilter(jwtService, userDetailsService, revokedTokenRepository);
+    public JwtAuthenticationFilter jwtAuthenticationFilter(
+            JwtService jwtService,
+            UserDetailsService userDetailsService,
+            RevokedTokenRepository revokedTokenRepository
+    ) {
+        return new JwtAuthenticationFilter(
+                jwtService,
+                userDetailsService,
+                revokedTokenRepository
+        );
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**", "/users/**", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        // Allow public access to job listings for candidates
-                        .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
-                        // Employer: Đăng job (POST /api/v1/jobs/)
-                        .requestMatchers(HttpMethod.POST, "/api/v1/jobs/").hasRole("EMPLOYER")
-                        // Candidate: Nộp hồ sơ (POST /api/v1/jobs/{jobId}/apply)
-                        .requestMatchers(HttpMethod.POST, "/api/v1/jobs/*/apply").hasRole("CANDIDATE")
-                        // Employer: Xem và cập nhật hồ sơ
-                        .requestMatchers("/api/v1/employer/**").hasRole("EMPLOYER")
-                        // Admin
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                );
+        http.csrf(csrf -> csrf.disable()).sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/auth/**", "/users/**", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
+                .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
+
+                .requestMatchers("/api/v1/files/upload-cv").hasRole("CANDIDATE")
+
+                .requestMatchers(HttpMethod.POST, "/api/v1/jobs/").hasRole("EMPLOYER")
+
+                .requestMatchers(HttpMethod.POST, "/api/v1/jobs/*/apply").hasRole("CANDIDATE")
+
+                .requestMatchers("/api/v1/employer/**").hasRole("EMPLOYER")
+
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+
+                .anyRequest().authenticated());
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
