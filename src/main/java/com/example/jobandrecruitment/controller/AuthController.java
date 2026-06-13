@@ -69,7 +69,7 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/refresh-token")
+    @PostMapping({"/refresh-token", "/refresh"})
     public ResponseEntity<ApiDataResponse<AuthResponse>> refreshToken(@RequestBody RefreshTokenRequest request) {
         try {
             String refreshToken = request.getRefreshToken();
@@ -96,13 +96,15 @@ public class AuthController {
                 response.setHttpStatus(HttpStatus.UNAUTHORIZED);
                 return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
             ApiDataResponse<AuthResponse> response = new ApiDataResponse<>();
             response.setSuccess(false);
-            response.setMessage("Refresh token không hợp lệ");
+            response.setMessage(ex.getClass().getSimpleName());
             response.setData(null);
-            response.setHttpStatus(HttpStatus.UNAUTHORIZED);
-            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+            response.setHttpStatus(HttpStatus.BAD_REQUEST);
+
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
     }
 

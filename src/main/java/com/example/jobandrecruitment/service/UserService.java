@@ -23,5 +23,7 @@ public interface UserService {
     PasswordResetResponse forgotPassword(ForgotPasswordRequest request);
 
     void resetPassword(ResetPasswordRequest request);
+
+    String updateCurrentUserCvUrl(String cvUrl);
 }
 

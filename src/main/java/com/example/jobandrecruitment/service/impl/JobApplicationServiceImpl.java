@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,38 +38,34 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     public JobApplicationResponse applyJob(Long jobId, JobApplicationRequest request) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth.getName() == null) {
-            throw new ResourceNotFoundException("Authenticated candidate not found");
-        }
-
-        String email = auth.getName();
-        User candidate = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("Candidate not found"));
-
+        User candidate = getCurrentUser("Candidate not found");
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
 
         if (!job.isActive()) {
-            throw new AppException("Vị trí tuyển dụng này chưa được duyệt");
+            throw new AppException("Job is not approved yet", 409);
         }
 
-        var existingApp = jobApplicationRepository.findByJobIdAndCandidateId(jobId, candidate.getId());
-        if (existingApp.isPresent()) {
-            throw new AppException("Bạn đã nộp hồ sơ cho vị trí này rồi");
+        if (job.getDeadline() != null && job.getDeadline().isBefore(LocalDateTime.now())) {
+            throw new AppException("Job application deadline has passed", 409);
         }
 
-        // Bổ sung gán request.getSubmittedCvUrl() vào Builder
+        boolean alreadyApplied = jobApplicationRepository
+                .findByJobIdAndCandidateId(jobId, candidate.getId())
+                .isPresent();
+        if (alreadyApplied) {
+            throw new AppException("You already applied for this job", 409);
+        }
+
         JobApplication application = JobApplication.builder()
                 .job(job)
                 .candidate(candidate)
                 .coverLetter(request.getCoverLetter())
-                .submittedCvUrl(request.getSubmittedCvUrl()) // THÊM DÒNG NÀY
+                .submittedCvUrl(request.getSubmittedCvUrl())
                 .status(JobStatus.PENDING)
                 .build();
 
-        JobApplication saved = jobApplicationRepository.save(application);
-        return mapToResponse(saved);
+        return mapToResponse(jobApplicationRepository.save(application));
     }
 
     @Override
@@ -76,45 +73,29 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         JobApplication application = jobApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Application not found"));
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth.getName() == null) {
-            throw new ResourceNotFoundException("Authenticated user not found");
-        }
-
-        String email = auth.getName();
-        User employer = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
+        User employer = getCurrentUser("Employer not found");
         if (!application.getJob().getEmployer().getId().equals(employer.getId())) {
-            throw new AppException("Bạn không có quyền cập nhật trạng thái hồ sơ này");
+            throw new AppException("You cannot update an application for another employer's job", 403);
         }
 
         if (!application.getJob().isActive()) {
-            throw new AppException("Job này chưa được duyệt, không thể phản hồi hồ sơ");
+            throw new AppException("Job is not approved yet", 409);
         }
 
         application.setStatus(request.getStatus());
-        JobApplication updated = jobApplicationRepository.save(application);
+        application.setEmployerFeedback(request.getFeedback());
 
-        return mapToResponse(updated);
+        return mapToResponse(jobApplicationRepository.save(application));
     }
 
     @Override
     public List<JobApplicationResponse> getJobApplications(Long jobId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth.getName() == null) {
-            throw new ResourceNotFoundException("Authenticated user not found");
-        }
-
-        String email = auth.getName();
-        User employer = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
+        User employer = getCurrentUser("Employer not found");
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
 
         if (!job.getEmployer().getId().equals(employer.getId())) {
-            throw new AppException("Bạn không có quyền xem hồ sơ cho vị trí này");
+            throw new AppException("You cannot view applications for another employer's job", 403);
         }
 
         return jobApplicationRepository.findByJobId(jobId).stream()
@@ -123,8 +104,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
-    public List<JobApplicationResponse> getCandidateApplications(Long candidateId) {
-        return jobApplicationRepository.findByCandidateId(candidateId).stream()
+    public List<JobApplicationResponse> getCurrentCandidateApplications() {
+        User candidate = getCurrentUser("Candidate not found");
+        return jobApplicationRepository.findByCandidateId(candidate.getId()).stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -133,7 +115,26 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     public JobApplicationResponse getApplicationById(Long applicationId) {
         JobApplication application = jobApplicationRepository.findById(applicationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Application not found"));
+
+        User currentUser = getCurrentUser("User not found");
+        boolean isJobOwner = application.getJob().getEmployer().getId().equals(currentUser.getId());
+        boolean isCandidateOwner = application.getCandidate().getId().equals(currentUser.getId());
+
+        if (!isJobOwner && !isCandidateOwner) {
+            throw new AppException("You cannot view this application", 403);
+        }
+
         return mapToResponse(application);
+    }
+
+    private User getCurrentUser(String notFoundMessage) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || auth.getName() == null) {
+            throw new AppException("Authentication is required", 401);
+        }
+
+        return userRepository.findByEmail(auth.getName())
+                .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
     }
 
     private JobApplicationResponse mapToResponse(JobApplication app) {
@@ -148,7 +149,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                 app.getStatus(),
                 app.getAppliedAt(),
                 app.getUpdatedAt(),
-                app.getSubmittedCvUrl()
+                app.getSubmittedCvUrl(),
+                app.getEmployerFeedback()
         );
     }
 }

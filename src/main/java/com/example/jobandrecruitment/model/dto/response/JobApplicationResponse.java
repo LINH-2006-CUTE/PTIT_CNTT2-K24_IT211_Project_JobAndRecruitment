@@ -24,5 +24,14 @@ public class JobApplicationResponse {
     private LocalDateTime appliedAt;
     private LocalDateTime updatedAt;
     private String submittedCvUrl;
+    private String employerFeedback;
+
+    public JobApplicationResponse(Long id, Long jobId, String jobTitle, Long candidateId,
+                                  String candidateName, String candidateEmail, String coverLetter,
+                                  JobStatus status, LocalDateTime appliedAt, LocalDateTime updatedAt,
+                                  String submittedCvUrl) {
+        this(id, jobId, jobTitle, candidateId, candidateName, candidateEmail, coverLetter,
+                status, appliedAt, updatedAt, submittedCvUrl, null);
+    }
 }
 

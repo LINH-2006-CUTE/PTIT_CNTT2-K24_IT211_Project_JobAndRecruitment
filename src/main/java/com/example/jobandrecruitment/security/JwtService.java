@@ -52,8 +52,7 @@ public class JwtService {
                 .collect(Collectors.toList()));
 
         Date now = new Date();
-        // Cấp thời gian sống cho Refresh Token dài hơn Access Token (Ví dụ: 7 ngày = 7 * 24 * 60 * 60 * 1000)
-        long refreshTokenExpirationMs = 604800000;
+        long refreshTokenExpirationMs = 604800000L; // 7 ngày
         Date expiry = new Date(now.getTime() + refreshTokenExpirationMs);
 
         return Jwts.builder()
@@ -61,7 +60,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Sử dụng đúng getSigningKey() bảo mật cao
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 

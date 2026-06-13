@@ -12,9 +12,8 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 public class RevokedToken {
-
     @Id
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 1000, nullable = false, unique = true)
     private String id;
 
     @Column(name = "expiry_instant", nullable = false)

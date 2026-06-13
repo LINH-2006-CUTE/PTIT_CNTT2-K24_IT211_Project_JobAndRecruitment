@@ -65,9 +65,26 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
-        http.csrf(csrf -> csrf.disable()).sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/auth/**", "/users/**", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+        http.csrf(csrf -> csrf.disable()).sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                        "/api/v1/auth/register",
+                        "/api/v1/auth/login",
+                        "/api/v1/auth/refresh",
+                        "/api/v1/auth/refresh-token",
+                        "/api/v1/auth/forgot-password",
+                        "/api/v1/auth/reset-password",
+                        "/users/**",
+                        "/error",
+                        "/actuator/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**"
+                ).permitAll()
+
+                .requestMatchers("/api/v1/auth/logout", "/api/v1/auth/change-password").authenticated()
 
                 .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
+
+                .requestMatchers("/api/v1/candidate/**").hasRole("CANDIDATE")
 
                 .requestMatchers("/api/v1/files/upload-cv").hasRole("CANDIDATE")
 

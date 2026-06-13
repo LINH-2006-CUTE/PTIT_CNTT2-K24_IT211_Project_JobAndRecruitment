@@ -42,13 +42,16 @@ public class JobServiceImpl implements JobService {
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .location(request.getLocation())
+                .salary(request.getSalary())
+                .requiredSkills(request.getRequiredSkills())
+                .deadline(request.getDeadline())
                 .employer(employer)
                 .isActive(false)
                 .build();
 
         Job saved = jobRepository.save(job);
 
-        return new JobResponse(saved.getId(), saved.getTitle(), saved.getDescription(), saved.getLocation(), saved.isActive(), saved.getEmployer().getEmail(), saved.getCreatedAt());
+        return mapToResponse(saved);
     }
 
     @Override
@@ -60,7 +63,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobResponse> getAllJobs() {
-        return jobRepository.findAll().stream().map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt())).collect(Collectors.toList());
+        return jobRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -72,7 +75,7 @@ public class JobServiceImpl implements JobService {
         } else {
             pageResult = jobRepository.findByIsActive(isActive, pageable);
         }
-        return pageResult.getContent().stream().map(j -> new JobResponse(j.getId(), j.getTitle(), j.getDescription(), j.getLocation(), j.isActive(), j.getEmployer() != null ? j.getEmployer().getEmail() : null, j.getCreatedAt())).collect(Collectors.toList());
+        return pageResult.getContent().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -90,15 +93,23 @@ public class JobServiceImpl implements JobService {
         org.springframework.data.domain.Page<Job> pageResult = jobRepository.searchActiveJobs(title, location, skill, pageable);
 
         return pageResult.getContent().stream()
-                .map(j -> new JobResponse(
-                        j.getId(),
-                        j.getTitle(),
-                        j.getDescription(),
-                        j.getLocation(),
-                        j.isActive(),
-                        j.getEmployer() != null ? j.getEmployer().getEmail() : null,
-                        j.getCreatedAt()))
+                .map(this::mapToResponse)
                 .collect(Collectors.toList());
+    }
+
+    private JobResponse mapToResponse(Job job) {
+        return new JobResponse(
+                job.getId(),
+                job.getTitle(),
+                job.getDescription(),
+                job.getLocation(),
+                job.getSalary(),
+                job.getRequiredSkills(),
+                job.getDeadline(),
+                job.isActive(),
+                job.getEmployer() != null ? job.getEmployer().getEmail() : null,
+                job.getCreatedAt()
+        );
     }
 }
 

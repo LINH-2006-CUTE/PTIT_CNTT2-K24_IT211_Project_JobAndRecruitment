@@ -32,7 +32,7 @@ public class APIAdvice {
 
 	@ExceptionHandler(AppException.class)
 	public ResponseEntity<ApiDataResponse<Object>> handleAppException(AppException ex) {
-		HttpStatus status = HttpStatus.BAD_REQUEST;
+		HttpStatus status = HttpStatus.valueOf(ex.getStatus());
 		ApiDataResponse<Object> body = ApiDataResponse.builder()
 				.success(false)
 				.message(ex.getMessage())

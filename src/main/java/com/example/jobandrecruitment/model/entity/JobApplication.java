@@ -32,6 +32,9 @@ public class JobApplication {
     @Column(name = "submitted_cv_url", nullable = false, length = 255)
     private String submittedCvUrl;
 
+    @Column(name = "employer_feedback", columnDefinition = "TEXT")
+    private String employerFeedback;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private JobStatus status = JobStatus.PENDING;

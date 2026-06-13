@@ -17,8 +17,16 @@ public class JobResponse {
     private String title;
     private String description;
     private String location;
+    private String salary;
+    private String requiredSkills;
+    private LocalDateTime deadline;
     private boolean active;
     private String employerEmail;
     private LocalDateTime createdAt;
+
+    public JobResponse(Long id, String title, String description, String location,
+                       boolean active, String employerEmail, LocalDateTime createdAt) {
+        this(id, title, description, location, null, null, null, active, employerEmail, createdAt);
+    }
 }
 

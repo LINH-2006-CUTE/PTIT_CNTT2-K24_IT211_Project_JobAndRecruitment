@@ -121,6 +121,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String updateCurrentUserCvUrl(String cvUrl) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getName() == null) {
+            throw new AppException("Bạn cần đăng nhập để tải CV");
+        }
+
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResourceNotFoundException("Người dùng không tồn tại"));
+
+        user.setCvUrl(cvUrl);
+        userRepository.save(user);
+        return cvUrl;
+    }
+
+    @Override
     public void registerUser(AuthRegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new AppException("Email đã tồn tại");

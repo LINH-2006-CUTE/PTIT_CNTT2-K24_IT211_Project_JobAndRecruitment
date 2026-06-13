@@ -15,7 +15,7 @@ public interface JobApplicationService {
 
     List<JobApplicationResponse> getJobApplications(Long jobId);
 
-    List<JobApplicationResponse> getCandidateApplications(Long candidateId);
+    List<JobApplicationResponse> getCurrentCandidateApplications();
 
     JobApplicationResponse getApplicationById(Long applicationId);
 }

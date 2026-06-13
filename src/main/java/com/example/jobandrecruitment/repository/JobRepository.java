@@ -15,7 +15,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 	@Query("SELECT j FROM Job j WHERE j.isActive = true " +
 			"AND (:title IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :title, '%'))) " +
 			"AND (:location IS NULL OR LOWER(j.location) LIKE LOWER(CONCAT('%', :location, '%'))) " +
-			"AND (:skill IS NULL OR LOWER(j.description) LIKE LOWER(CONCAT('%', :skill, '%')))")
+			"AND (:skill IS NULL OR LOWER(j.requiredSkills) LIKE LOWER(CONCAT('%', :skill, '%')) " +
+			"OR LOWER(j.description) LIKE LOWER(CONCAT('%', :skill, '%')))")
 	Page<Job> searchActiveJobs(@Param("title") String title,
 	                           @Param("location") String location,
 	                           @Param("skill") String skill,
